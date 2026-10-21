@@ -1,0 +1,48 @@
+<view class="page">
+  <view class="title">和 TA 互动 🤗</view>
+  <view class="subtitle">每一个小动作，都会实时传到 TA 的手机上</view>
+
+  <!-- 回抱 -->
+  <view class="card center">
+    <view class="big-emoji">🫂</view>
+    <view class="card-title">给 TA 一个拥抱</view>
+    <view class="card-desc">不开心或想亲近时，把拥抱送过去</view>
+    <button class="btn btn-primary mt-20" bindtap="onHug">抱抱 TA</button>
+  </view>
+
+  <!-- 表情互动 -->
+  <view class="card">
+    <view class="card-title">发表情逗 TA 开心</view>
+    <view class="emoji-grid">
+      <view class="emoji-cell" wx:for="{{emojis}}" wx:key="*this" data-e="{{item}}" bindtap="onReact">{{item}}</view>
+    </view>
+  </view>
+
+  <!-- 心情打卡 -->
+  <view class="card">
+    <view class="card-title">今天的心情</view>
+    <view class="mood-grid">
+      <view class="mood-cell {{mood===item.k?'sel':''}}" wx:for="{{moods}}" wx:key="k" data-k="{{item.k}}" data-label="{{item.label}}" bindtap="pickMood">
+        <text class="m-emoji">{{item.e}}</text>
+        <text class="m-label">{{item.label}}</text>
+      </view>
+    </view>
+    <input class="input mt-20" placeholder="想对 TA 说点什么（可选）" value="{{moodNote}}" bindinput="onMoodNote" maxlength="60" />
+    <button class="btn btn-ghost mt-20" bindtap="sendMood">把心情告诉 TA</button>
+  </view>
+
+  <!-- TA 此刻的心晴 -->
+  <view class="card ta-mood" wx:if="{{partnerMood}}">
+    <view class="card-title">TA 最近的心情</view>
+    <view class="tm-row">
+      <text class="tm-emoji">{{partnerMood.emoji}}</text>
+      <view>
+        <view class="tm-label">{{partnerMood.label}}</view>
+        <view class="tm-note" wx:if="{{partnerMood.note}}">{{partnerMood.note}}</view>
+        <view class="tm-time">{{partnerMood.timeText}}</view>
+      </view>
+    </view>
+  </view>
+
+  <miss-overlay />
+</view>

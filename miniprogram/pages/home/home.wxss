@@ -1,0 +1,69 @@
+.home { padding-top: 30rpx; }
+
+.topbar { display: flex; align-items: center; justify-content: space-between; }
+.partner { display: flex; align-items: center; gap: 18rpx; }
+.p-avatar {
+  width: 92rpx; height: 92rpx; line-height: 92rpx; text-align: center;
+  border-radius: 50%; background: #fff; font-size: 40rpx; color: #e84393; font-weight: 700;
+  box-shadow: 0 8rpx 20rpx rgba(232,67,147,0.18);
+}
+.p-name { font-size: 36rpx; font-weight: 700; color: #5b3a4b; }
+.p-status { font-size: 22rpx; color: #b07a93; margin-top: 4rpx; display: flex; align-items: center; gap: 8rpx; }
+.dot { width: 14rpx; height: 14rpx; border-radius: 50%; }
+.dot.on { background: #4cd964; box-shadow: 0 0 10rpx #4cd964; }
+.dot.off { background: #d9b8c6; }
+.gear { font-size: 44rpx; padding: 10rpx; }
+
+.greet { font-size: 30rpx; color: #b07a93; margin: 28rpx 0 10rpx; }
+
+.heart-zone { position: relative; display: flex; flex-direction: column; align-items: center; margin: 30rpx 0 10rpx; }
+.heart-btn {
+  width: 320rpx; height: 320rpx; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ff9ec4, #e84393);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  box-shadow: 0 24rpx 60rpx rgba(232,67,147,0.4);
+  color: #fff;
+}
+.heart-btn.press { transform: scale(0.94); }
+.hb-emoji { font-size: 120rpx; line-height: 1; }
+.hb-text { font-size: 40rpx; font-weight: 800; letter-spacing: 6rpx; margin-top: 6rpx; }
+.heart-tip { font-size: 24rpx; color: #b07a93; margin-top: 24rpx; }
+
+.burst {
+  position: absolute;
+  top: 120rpx;
+  font-size: 44rpx;
+  color: #ff6b9d;
+  opacity: 0;
+  animation: floatUp 1.8s ease-out forwards;
+  pointer-events: none;
+}
+
+.stat-row { display: flex; gap: 18rpx; margin: 30rpx 0; }
+.stat-pill {
+  flex: 1; background: rgba(255,255,255,0.8); border-radius: 24rpx;
+  padding: 26rpx 0; text-align: center;
+  box-shadow: 0 10rpx 26rpx rgba(232,67,147,0.1);
+}
+.stat-pill .num { font-size: 48rpx; font-weight: 800; color: #e84393; }
+.stat-pill .lab { font-size: 24rpx; color: #b07a93; margin-top: 6rpx; }
+
+.quote-card .q-head { font-size: 28rpx; color: #e84393; font-weight: 700; }
+.quote-card .q-text { font-size: 34rpx; line-height: 1.6; color: #5b3a4b; margin: 18rpx 0; font-style: italic; }
+.q-refresh { text-align: right; font-size: 26rpx; color: #e84393; }
+
+.quick { display: flex; gap: 18rpx; margin-top: 10rpx; }
+
+.token-card { display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, #fff0f6, #f3e0ff); }
+.tc-left { flex: 1; }
+.tc-title { font-size: 32rpx; font-weight: 700; color: #5b3a4b; }
+.tc-desc { font-size: 24rpx; color: #b07a93; margin-top: 8rpx; }
+.tc-arrow { font-size: 56rpx; color: #e84393; margin-left: 16rpx; }
+.q-item {
+  flex: 1; background: rgba(255,255,255,0.8); border-radius: 24rpx;
+  padding: 28rpx 0; text-align: center;
+  box-shadow: 0 10rpx 26rpx rgba(232,67,147,0.1);
+}
+.q-emoji { font-size: 52rpx; }
+.q-name { font-size: 26rpx; color: #b07a93; margin-top: 8rpx; }
+.q-item:active { transform: scale(0.96); }

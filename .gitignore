@@ -1,0 +1,13 @@
+# 依赖（不入库，部署时平台自动 npm install）
+backend/node_modules/
+
+# 运行时数据（不入库；部署时由挂载卷 /data 持久化，详见 DEPLOY.md）
+backend/data/
+
+# 系统 / 编辑器
+.DS_Store
+Thumbs.db
+*.log
+
+# WorkBuddy 本地数据
+.workbuddy/

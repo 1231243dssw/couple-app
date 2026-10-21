@@ -1,0 +1,41 @@
+<view class="page">
+  <view class="title">情话 & 定时 🌟</view>
+  <view class="subtitle">把想说的话，定时送到 TA 心里</view>
+
+  <!-- 定时情话 -->
+  <view class="card">
+    <view class="card-title">⏰ 定时情话</view>
+    <view class="card-desc">设置后，每天到点会自动发一句给 TA（双方都会收到）</view>
+
+    <view class="sched" wx:for="{{list}}" wx:key="id">
+      <view class="sched-main">
+        <view class="sched-time">{{item.time}}</view>
+        <view class="sched-text">{{item.text}}</view>
+      </view>
+      <view class="sched-ops">
+        <switch checked="{{item.enabled}}" bindchange="onToggle" data-id="{{item.id}}" color="#ff6b9d" />
+        <view class="del" data-id="{{item.id}}" bindtap="onDelete">删除</view>
+      </view>
+    </view>
+    <view class="empty" wx:if="{{list.length===0}}">还没有定时情话，添加一句吧～</view>
+
+    <!-- 添加 -->
+    <view class="add">
+      <input class="input" placeholder="写一句想定时对 TA 说的话" value="{{newText}}" bindinput="onText" maxlength="60" />
+      <view class="add-row">
+        <picker mode="time" value="{{newTime}}" bindchange="onTime" class="time-pick">
+          <view class="time-box">🕐 {{newTime}}</view>
+        </picker>
+        <button class="btn btn-primary add-btn" bindtap="onAdd">添加</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 情话库 -->
+  <view class="card">
+    <view class="card-title">💌 情话库</view>
+    <view class="quote" wx:for="{{quotes}}" wx:key="*this" data-q="{{item}}" bindtap="copyQuote">“{{item}}” <text class="copy">复制</text></view>
+  </view>
+
+  <miss-overlay />
+</view>

@@ -1,0 +1,42 @@
+<view class="page">
+  <view class="title">和 TA 绑定 💕</view>
+  <view class="subtitle">只需一步，就能把想念送到对方手心</view>
+
+  <view class="card">
+    <view class="field-label">你的昵称</view>
+    <input class="input" placeholder="例如：小明 / 小红" value="{{name}}" bindinput="onName" maxlength="12" />
+  </view>
+
+  <!-- 生成邀请码 -->
+  <block wx:if="{{!mode || mode==='create'}}">
+    <view class="card" wx:if="{{!code}}">
+      <view class="big-emoji">✨</view>
+      <view class="card-title">邀请 TA 加入</view>
+      <view class="card-desc">生成专属邀请码，发给 TA 输入即可绑定</view>
+      <button class="btn btn-primary mt-40" bindtap="onCreate">生成邀请码</button>
+    </view>
+
+    <view class="card code-card" wx:else>
+      <view class="card-title">邀请码已生成</view>
+      <view class="code">{{code}}</view>
+      <view class="card-desc">把这段数字发给 TA，TA 输入后你们就绑定啦</view>
+      <button class="btn btn-ghost mt-20" bindtap="copyCode">复制邀请码</button>
+      <view class="waiting" wx:if="{{!bound}}">
+        <view class="dot"></view> 等待 TA 加入…（可最小化等待）
+      </view>
+      <view class="bound-tip" wx:else>🎉 TA 已加入，正在进入…</view>
+    </view>
+  </block>
+
+  <!-- 输入邀请码加入 -->
+  <view class="card" wx:if="{{mode==='join'}}">
+    <view class="big-emoji">🔑</view>
+    <view class="card-title">输入邀请码</view>
+    <input class="input code-input" placeholder="6 位数字邀请码" value="{{joinCode}}" bindinput="onJoinCode" maxlength="6" type="number" />
+    <button class="btn btn-primary mt-40" bindtap="onJoin">加入 TA</button>
+  </view>
+
+  <view class="switch" bindtap="toggleMode">
+    {{ mode==='join' ? '← 我想生成邀请码' : '我有邀请码？去加入 →' }}
+  </view>
+</view>

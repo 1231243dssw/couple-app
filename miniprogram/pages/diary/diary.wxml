@@ -1,0 +1,40 @@
+<view class="page">
+  <view class="title">日记 & 信件 ✍️</view>
+  <view class="subtitle">把心意写下来，TA 会读到的</view>
+
+  <view class="tabs">
+    <view class="tab {{tab==='diary'?'on':''}}" bindtap="setTab" data-t="diary">💞 恋爱日记</view>
+    <view class="tab {{tab==='letter'?'on':''}}" bindtap="setTab" data-t="letter">✉️ 未来信件</view>
+  </view>
+
+  <view class="empty" wx:if="{{items.length===0}}">还没有{{tab==='diary'?'日记':'信件'}}，写第一篇吧～</view>
+
+  <view class="entry card" wx:for="{{items}}" wx:key="id" data-id="{{item.id}}" data-from="{{item.from}}" bindtap="openEntry">
+    <view class="e-top">
+      <text class="e-title">{{item.title || (item.type==='letter'?'给未来的你':'一篇日记')}}</text>
+      <text class="e-from {{item.from===who?'me':'ta'}}">{{item.from===who?'我':partnerName}}</text>
+    </view>
+    <view class="e-body">{{item.body}}</view>
+    <view class="e-foot">
+      <text class="e-time">{{item.timeText}}</text>
+      <text class="e-unread" wx:if="{{item.from!==who && item.unread}}">● 未读</text>
+    </view>
+  </view>
+
+  <button class="fab" bindtap="showForm">＋ 写{{tab==='diary'?'日记':'信件'}}</button>
+
+  <!-- 写弹层 -->
+  <view class="mask" wx:if="{{form}}" bindtap="hideForm">
+    <view class="sheet" catchtap="noop">
+      <view class="sheet-title">写给 TA 的{{formType==='letter'?'未来信件':'恋爱日记'}}</view>
+      <input class="input" placeholder="标题（可选）" value="{{fTitle}}" bindinput="onFTitle" maxlength="30" />
+      <textarea class="ta" placeholder="此刻想说的话…" value="{{fBody}}" bindinput="onFBody" maxlength="500" />
+      <view class="sheet-ops">
+        <button class="btn btn-ghost" bindtap="hideForm">取消</button>
+        <button class="btn btn-primary" bindtap="submit">保存并送达</button>
+      </view>
+    </view>
+  </view>
+
+  <miss-overlay />
+</view>

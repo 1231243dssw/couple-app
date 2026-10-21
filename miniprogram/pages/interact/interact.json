@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "互动",
+  "usingComponents": {
+    "miss-overlay": "/components/miss-overlay/miss-overlay"
+  }
+}

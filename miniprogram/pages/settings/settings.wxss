@@ -1,0 +1,16 @@
+.row { display: flex; justify-content: space-between; align-items: center; padding: 22rpx 0; border-bottom: 2rpx solid #ffe3ef; }
+.row:last-child { border-bottom: none; }
+.k { font-size: 28rpx; color: #b07a93; }
+.v { font-size: 30rpx; color: #5b3a4b; font-weight: 600; }
+.code { color: #e84393; letter-spacing: 4rpx; }
+
+.card-title { font-size: 32rpx; font-weight: 700; color: #5b3a4b; margin-bottom: 12rpx; }
+.card-desc { font-size: 24rpx; color: #b07a93; line-height: 1.5; margin-bottom: 18rpx; }
+.field-label { font-size: 26rpx; color: #b07a93; }
+.mt-20 { margin-top: 20rpx; }
+.input { background: #fff; border-radius: 18rpx; padding: 22rpx 24rpx; font-size: 28rpx; border: 2rpx solid #ffd0e2; margin-top: 12rpx; }
+
+.danger { background: #fff6f6; }
+.danger-btn { color: #e84393; border-color: #ffb3d1; }
+
+.about { text-align: center; font-size: 24rpx; color: #c9a8b8; margin-top: 40rpx; }

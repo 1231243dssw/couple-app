@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "我们的数据",
+  "usingComponents": {
+    "miss-overlay": "/components/miss-overlay/miss-overlay"
+  },
+  "enablePullDownRefresh": true
+}

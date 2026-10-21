@@ -1,0 +1,63 @@
+<view class="page">
+  <view class="title">我们的思念轨迹 📊</view>
+  <view class="subtitle">每一份想念，都被悄悄记下了</view>
+
+  <!-- 英雄数字 -->
+  <view class="hero card">
+    <view class="hero-num">{{stats.total || 0}}</view>
+    <view class="hero-lab">累计思念次数</view>
+    <view class="hero-sub">日均 {{stats.avgPerDay || 0}} 次 · 已相伴 {{stats.days || 0}} 天</view>
+  </view>
+
+  <view class="grid2">
+    <view class="mini card">
+      <view class="mini-num">{{stats.todayCount || 0}}</view>
+      <view class="mini-lab">今日思念</view>
+    </view>
+    <view class="mini card">
+      <view class="mini-num">{{stats.streak || 0}}</view>
+      <view class="mini-lab">连续天数 🔥</view>
+    </view>
+  </view>
+
+  <!-- 双方贡献 -->
+  <view class="card">
+    <view class="card-title">谁更想谁 🤔</view>
+    <view class="who-row">
+      <view class="who">
+        <view class="who-name">{{myName}}（我）</view>
+        <view class="who-bar"><view class="who-fill" style="width:{{aPct}}%"></view></view>
+        <view class="who-num">{{stats.byWho.A || 0}} 次</view>
+      </view>
+      <view class="who">
+        <view class="who-name">{{partnerName}}（TA）</view>
+        <view class="who-bar"><view class="who-fill b" style="width:{{bPct}}%"></view></view>
+        <view class="who-num">{{stats.byWho.B || 0}} 次</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 14 天趋势 -->
+  <view class="card">
+    <view class="card-title">近 14 天思念趋势</view>
+    <view class="chart">
+      <view class="col" wx:for="{{stats.last14}}" wx:key="date">
+        <view class="bar-wrap">
+          <view class="bar" style="height:{{item.h}}rpx"></view>
+        </view>
+        <view class="bar-date">{{item.date}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 拥抱统计 -->
+  <view class="card center">
+    <view class="card-title">🤗 拥抱次数</view>
+    <view class="hug-row">
+      <view>我抱了 TA <text class="hug-num">{{stats.hugs.A || 0}}</text> 次</view>
+      <view>TA 抱了我 <text class="hug-num">{{stats.hugs.B || 0}}</text> 次</view>
+    </view>
+  </view>
+
+  <miss-overlay />
+</view>

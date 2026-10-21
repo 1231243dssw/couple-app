@@ -1,0 +1,34 @@
+<!-- 收到思念 / 情话 / 回抱 的全屏浪漫弹层 -->
+<view wx:if="{{visible}}" class="overlay {{type}}" catchtap="noop">
+  <!-- 漂浮爱心 -->
+  <view class="hearts">
+    <text wx:for="{{hearts}}" wx:key="id" class="heart" style="left:{{item.left}}rpx;animation-delay:{{item.delay}}s;">❤</text>
+  </view>
+
+  <!-- 思念 / 情话：大屏 -->
+  <view wx:if="{{type==='miss' || type==='scheduled'}}" class="big">
+    <view class="avatar">{{type==='miss' ? fromName : '💌'}}</view>
+    <view class="line1">{{type==='miss' ? (fromName + ' 想你了') : '一份专属情话送达'}}</view>
+    <view wx:if="{{type==='miss'}}" class="line2">此刻 TA 的脑海里，全是你</view>
+    <view wx:else class="quote">“{{text}}”</view>
+    <view class="acts">
+      <button class="act hug" bindtap="onHugBack">🤗 抱抱 TA</button>
+      <button class="act miss" bindtap="onMissBack">💗 我也想你</button>
+    </view>
+    <view class="close" bindtap="close">先收下这份心意</view>
+  </view>
+
+  <!-- 回抱：轻提示 -->
+  <view wx:elif="{{type==='hug'}}" class="small">
+    <view class="emoji">🤗</view>
+    <view class="stext">{{fromName}} 给你一个大大的拥抱</view>
+    <view class="close" bindtap="close">抱紧了</view>
+  </view>
+
+  <!-- 表情：轻提示 -->
+  <view wx:elif="{{type==='react'}}" class="small">
+    <view class="emoji">{{emoji}}</view>
+    <view class="stext">{{fromName}} 对你发了个表情</view>
+    <view class="close" bindtap="close">回应一下</view>
+  </view>
+</view>

@@ -1,0 +1,73 @@
+<view class="page home">
+  <!-- 顶部：对方状态 -->
+  <view class="topbar">
+    <view class="partner">
+      <view class="p-avatar">{{partnerInitial}}</view>
+      <view class="p-info">
+        <view class="p-name">{{partnerName || 'TA'}}</view>
+        <view class="p-status">
+          <view class="dot {{online ? 'on' : 'off'}}"></view>
+          {{online ? '在线 · 随时能收到你的思念' : '现在不在线，但思念会一直在'}}
+        </view>
+      </view>
+    </view>
+    <view class="gear" bindtap="toSettings">⚙️</view>
+  </view>
+
+  <!-- 问候 -->
+  <view class="greet">{{greeting}}，想 TA 了吗？</view>
+
+  <!-- 大爱心按钮 -->
+  <view class="heart-zone">
+    <view class="heart-btn glow pulse {{pressing ? 'press' : ''}}" bindtap="onMiss">
+      <text class="hb-emoji">💗</text>
+      <text class="hb-text">想 TA</text>
+    </view>
+    <view class="heart-tip">轻轻一点，TA 的手机就会收到你的思念</view>
+
+    <!-- 本地飘心 -->
+    <text wx:for="{{burst}}" wx:key="id" class="burst" style="left:{{item.left}}rpx;animation-delay:{{item.delay}}s;">❤</text>
+  </view>
+
+  <!-- 今日数据 -->
+  <view class="stat-row">
+    <view class="stat-pill">
+      <view class="num">{{stats.todayCount || 0}}</view>
+      <view class="lab">今日思念</view>
+    </view>
+    <view class="stat-pill">
+      <view class="num">{{stats.total || 0}}</view>
+      <view class="lab">累计思念</view>
+    </view>
+    <view class="stat-pill">
+      <view class="num">{{stats.streak || 0}}</view>
+      <view class="lab">连续天数</view>
+    </view>
+  </view>
+
+  <!-- 今日情话 -->
+  <view class="card quote-card">
+    <view class="q-head">💌 今日想对 TA 说</view>
+    <view class="q-text">“{{quote}}”</view>
+    <view class="q-refresh" bindtap="refreshQuote">换一句 ↻</view>
+  </view>
+
+  <!-- 专属信物 -->
+  <view class="card token-card" bindtap="toToken">
+    <view class="tc-left">
+      <view class="tc-title">🎁 专属信物 · 找出爱意卡片</view>
+      <view class="tc-desc">生成只属于你们的信物码，扫一扫解锁惊喜</view>
+    </view>
+    <view class="tc-arrow">›</view>
+  </view>
+
+  <!-- 快捷入口 -->
+  <view class="quick">
+    <view class="q-item" bindtap="toInteract"><view class="q-emoji">🤗</view><view class="q-name">互动</view></view>
+    <view class="q-item" bindtap="toDiary"><view class="q-emoji">✍️</view><view class="q-name">日记</view></view>
+    <view class="q-item" bindtap="toWords"><view class="q-emoji">🌟</view><view class="q-name">情话</view></view>
+    <view class="q-item" bindtap="toStats"><view class="q-emoji">📊</view><view class="q-name">统计</view></view>
+  </view>
+
+  <miss-overlay />
+</view>

@@ -1,0 +1,92 @@
+/* app.wxss —— 全局浪漫主题 */
+page {
+  --rose: #ff6b9d;
+  --rose-deep: #e84393;
+  --purple: #a18cd1;
+  --gold: #ffd479;
+  --ink: #6b4a5b;
+  --soft: #fff5fa;
+  background: linear-gradient(160deg, #ffe3ef 0%, #ffd6e8 35%, #f3e0ff 100%);
+  min-height: 100vh;
+  font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif;
+  color: #6b4a5b;
+}
+
+/* 通用容器 */
+.page {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 40rpx 36rpx calc(40rpx + env(safe-area-inset-bottom));
+}
+
+/* 浪漫卡片 */
+.card {
+  background: rgba(255, 255, 255, 0.78);
+  border-radius: 32rpx;
+  padding: 36rpx 32rpx;
+  box-shadow: 0 16rpx 40rpx rgba(232, 67, 147, 0.12);
+  backdrop-filter: blur(8rpx);
+  margin-bottom: 28rpx;
+}
+
+.title {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: #5b3a4b;
+  letter-spacing: 2rpx;
+}
+.subtitle {
+  font-size: 26rpx;
+  color: #b07a93;
+  margin-top: 8rpx;
+}
+
+.btn {
+  border-radius: 999rpx;
+  padding: 26rpx 0;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: 600;
+  border: none;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #ff6b9d, #e84393);
+  color: #fff;
+  box-shadow: 0 12rpx 28rpx rgba(232, 67, 147, 0.35);
+}
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.7);
+  color: #e84393;
+  border: 2rpx solid #ffb3d1;
+}
+.btn:active { transform: scale(0.97); }
+
+/* 漂浮爱心动画 */
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translateY(-220rpx) scale(1.1); opacity: 0; }
+}
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+@keyframes glow {
+  0% { box-shadow: 0 0 0 0 rgba(255, 107, 157, 0.5); }
+  70% { box-shadow: 0 0 0 40rpx rgba(255, 107, 157, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 107, 157, 0); }
+}
+@keyframes pop {
+  0% { transform: scale(0.8); opacity: 0; }
+  60% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+.pulse { animation: pulse 2.4s ease-in-out infinite; }
+.glow { animation: glow 2s ease-out infinite; }
+
+.text-rose { color: #e84393; }
+.text-center { text-align: center; }
+.mt-20 { margin-top: 20rpx; }
+.mt-40 { margin-top: 40rpx; }

@@ -1,0 +1,32 @@
+.center { text-align: center; }
+.big-emoji { font-size: 90rpx; text-align: center; }
+.card-title { font-size: 34rpx; font-weight: 700; color: #5b3a4b; }
+.card-desc { font-size: 26rpx; color: #b07a93; margin-top: 12rpx; line-height: 1.5; }
+.input {
+  background: #fff; border-radius: 18rpx; padding: 22rpx 24rpx;
+  font-size: 30rpx; border: 2rpx solid #ffd0e2;
+}
+.mt-20 { margin-top: 20rpx; }
+
+.emoji-grid { display: flex; flex-wrap: wrap; gap: 18rpx; margin-top: 20rpx; }
+.emoji-cell {
+  font-size: 56rpx; width: 96rpx; height: 96rpx; line-height: 96rpx; text-align: center;
+  background: #fff; border-radius: 24rpx; box-shadow: 0 6rpx 16rpx rgba(232,67,147,0.1);
+}
+.emoji-cell:active { transform: scale(0.9); }
+
+.mood-grid { display: flex; flex-wrap: wrap; gap: 16rpx; margin-top: 18rpx; }
+.mood-cell {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  width: 150rpx; padding: 18rpx 0; background: #fff; border-radius: 22rpx;
+  border: 3rpx solid transparent;
+}
+.mood-cell.sel { border-color: #ff6b9d; background: #fff0f6; }
+.m-emoji { font-size: 48rpx; }
+.m-label { font-size: 24rpx; color: #b07a93; margin-top: 6rpx; }
+
+.ta-mood .tm-row { display: flex; align-items: center; gap: 22rpx; margin-top: 16rpx; }
+.tm-emoji { font-size: 70rpx; }
+.tm-label { font-size: 32rpx; font-weight: 700; color: #5b3a4b; }
+.tm-note { font-size: 26rpx; color: #b07a93; margin-top: 6rpx; }
+.tm-time { font-size: 22rpx; color: #c9a8b8; margin-top: 4rpx; }

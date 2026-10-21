@@ -1,0 +1,54 @@
+<view class="page">
+  <view class="title">专属信物 & 惊喜 🎁</view>
+  <view class="subtitle">生成你们的专属信物码，扫一扫就能解锁爱意卡片</view>
+
+  <!-- 生成信物 -->
+  <view class="card center" wx:if="{{!qr}}">
+    <view class="big-emoji">🔑</view>
+    <view class="card-title">生成专属信物码</view>
+    <view class="card-desc">这是只属于你们两人的信物。把它亮给 TA，或自己扫也能解锁惊喜。</view>
+    <button class="btn btn-primary mt-20" bindtap="genToken" loading="{{genLoading}}">生成信物码</button>
+  </view>
+
+  <!-- 信物码 + 扫描 -->
+  <block wx:else>
+    <view class="card center">
+      <view class="card-title">你们的专属信物码</view>
+      <image class="qr" src="{{qr}}" mode="aspectFit" show-menu-by-longpress="{{true}}" />
+      <view class="card-desc">让 TA 用微信「扫一扫」扫描此码，或保存到相册互相扫</view>
+      <view class="ops">
+        <button class="btn btn-ghost" bindtap="saveQr">保存图片</button>
+        <button class="btn btn-primary" bindtap="scan">扫一扫解锁</button>
+      </view>
+    </view>
+  </block>
+
+  <!-- 刚解锁的卡片 -->
+  <view class="card card-reveal" wx:if="{{reveal}}">
+    <view class="reveal-emoji">{{reveal.emoji}}</view>
+    <view class="reveal-title">{{reveal.title}}</view>
+    <view class="reveal-text">“{{reveal.text}}”</view>
+    <view class="reveal-tip">已收进你的卡片册 💕</view>
+  </view>
+
+  <!-- 全部集齐 -->
+  <view class="card center" wx:if="{{done}}">
+    <view class="big-emoji">🏆</view>
+    <view class="card-title">爱意卡片已集齐！</view>
+    <view class="card-desc">你们把 {{total}} 张心意都收集齐啦，真甜～</view>
+  </view>
+
+  <!-- 我的卡片册 -->
+  <view class="card">
+    <view class="card-title">我的卡片册（{{collectedCount}}/{{total}}）</view>
+    <view class="empty" wx:if="{{cards.length===0}}">还没有卡片，去扫信物解锁第一张吧～</view>
+    <view class="card-grid">
+      <view class="mini-card" wx:for="{{cards}}" wx:key="id">
+        <view class="mc-emoji">{{item.emoji}}</view>
+        <view class="mc-title">{{item.title}}</view>
+      </view>
+    </view>
+  </view>
+
+  <miss-overlay />
+</view>

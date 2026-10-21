@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: couple-miss-backend
+    runtime: node
+    rootDir: backend
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: "3000"
+      - key: DATA_DIR
+        value: /data
+    # 持久化说明：
+    # 免费实例的文件系统是临时的，重新部署/重启会清空 backend/data 里的数据。
+    # 若要长久保存（思念次数、日记、卡片进度），请在 Render 面板为服务挂载一块
+    # Render Disk，挂载路径填 /data（与上面 DATA_DIR 一致）即可永久保存。
+    # 不挂盘也能正常运行，只是数据会在重建时重置。

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "日记 & 信件",
+  "usingComponents": {
+    "miss-overlay": "/components/miss-overlay/miss-overlay"
+  }
+}

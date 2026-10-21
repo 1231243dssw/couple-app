@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "情话 & 定时",
+  "usingComponents": {
+    "miss-overlay": "/components/miss-overlay/miss-overlay"
+  }
+}

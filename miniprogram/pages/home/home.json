@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "思念",
+  "usingComponents": {
+    "miss-overlay": "/components/miss-overlay/miss-overlay"
+  }
+}

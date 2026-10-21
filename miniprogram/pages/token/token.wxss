@@ -1,0 +1,21 @@
+.center { text-align: center; }
+.big-emoji { font-size: 84rpx; }
+.card-title { font-size: 34rpx; font-weight: 700; color: #5b3a4b; }
+.card-desc { font-size: 25rpx; color: #b07a93; margin-top: 12rpx; line-height: 1.5; }
+.mt-20 { margin-top: 20rpx; }
+
+.qr { width: 420rpx; height: 420rpx; margin: 20rpx auto 6rpx; border-radius: 20rpx; background: #fff; padding: 12rpx; box-shadow: 0 10rpx 30rpx rgba(232,67,147,0.15); }
+.ops { display: flex; gap: 18rpx; margin-top: 24rpx; }
+.ops .btn { flex: 1; margin: 0; padding: 22rpx 0; font-size: 30rpx; }
+
+.card-reveal { text-align: center; background: linear-gradient(135deg, #ff6b9d, #a18cd1); color: #fff; }
+.reveal-emoji { font-size: 100rpx; }
+.reveal-title { font-size: 40rpx; font-weight: 800; margin-top: 8rpx; }
+.reveal-text { font-size: 32rpx; line-height: 1.6; margin: 18rpx 0; font-style: italic; }
+.reveal-tip { font-size: 24rpx; opacity: 0.9; }
+
+.card-grid { display: flex; flex-wrap: wrap; gap: 18rpx; margin-top: 18rpx; }
+.mini-card { width: 200rpx; background: #fff; border-radius: 22rpx; padding: 24rpx 0; text-align: center; box-shadow: 0 8rpx 20rpx rgba(232,67,147,0.1); }
+.mc-emoji { font-size: 56rpx; }
+.mc-title { font-size: 24rpx; color: #b07a93; margin-top: 8rpx; }
+.empty { text-align: center; color: #c9a8b8; font-size: 26rpx; padding: 30rpx 0; }

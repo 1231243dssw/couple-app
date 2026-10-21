@@ -1,0 +1,28 @@
+<view class="page">
+  <view class="title">设置 ⚙️</view>
+  <view class="subtitle">绑定信息与服务配置</view>
+
+  <view class="card">
+    <view class="row"><text class="k">我的昵称</text><text class="v">{{myName}}</text></view>
+    <view class="row"><text class="k">TA 的昵称</text><text class="v">{{partnerName}}</text></view>
+    <view class="row"><text class="k">邀请码</text><text class="v code" bindtap="copyCode">{{code}} 📋</text></view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">服务地址（高级）</view>
+    <view class="card-desc">后端未运行时思念无法送达。把下面地址改成你电脑/服务器的 IP 或域名。</view>
+    <view class="field-label">HTTP 地址</view>
+    <input class="input" value="{{serverUrl}}" bindinput="onServer" placeholder="http://192.168.x.x:3000" />
+    <view class="field-label mt-20">WebSocket 地址</view>
+    <input class="input" value="{{wsUrl}}" bindinput="onWs" placeholder="ws://192.168.x.x:3000" />
+    <button class="btn btn-primary mt-20" bindtap="saveServer">保存并应用</button>
+  </view>
+
+  <view class="card danger">
+    <view class="card-title">解除绑定</view>
+    <view class="card-desc">会清除本机绑定信息（TA 端不受影响，可重新加入）。</view>
+    <button class="btn btn-ghost danger-btn" bindtap="unbind">退出并解绑</button>
+  </view>
+
+  <view class="about">思念你 · 用每一次想念，靠近彼此 💗</view>
+</view>

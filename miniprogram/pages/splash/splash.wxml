@@ -1,0 +1,9 @@
+<view class="splash">
+  <view class="halo"></view>
+  <view class="heartbeat">💞</view>
+  <view class="name">思 念 你</view>
+  <view class="tag">把每一份想念，都轻轻送到 TA 身边</view>
+
+  <view class="start btn btn-primary" bindtap="start">开 始</view>
+  <view class="hint">与另一半绑定后，一键传递思念 💌</view>
+</view>

@@ -1,0 +1,48 @@
+.splash {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, #ffe3ef 0%, #ffd6e8 40%, #f3e0ff 100%);
+}
+.halo {
+  position: absolute;
+  width: 600rpx; height: 600rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,107,157,0.35), transparent 70%);
+  top: 18%;
+  animation: pulse 3s ease-in-out infinite;
+}
+.heartbeat {
+  font-size: 160rpx;
+  animation: pulse 1.6s ease-in-out infinite;
+  z-index: 2;
+}
+.name {
+  font-size: 76rpx;
+  font-weight: 800;
+  letter-spacing: 10rpx;
+  color: #e84393;
+  margin-top: 30rpx;
+  z-index: 2;
+}
+.tag {
+  font-size: 28rpx;
+  color: #b07a93;
+  margin-top: 18rpx;
+  z-index: 2;
+}
+.start {
+  width: 420rpx;
+  margin-top: 110rpx;
+  z-index: 2;
+}
+.hint {
+  font-size: 24rpx;
+  color: #c08aa0;
+  margin-top: 30rpx;
+  z-index: 2;
+}

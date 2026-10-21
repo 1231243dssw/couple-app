@@ -1,0 +1,37 @@
+{
+  "pages": [
+    "pages/splash/splash",
+    "pages/pairing/pairing",
+    "pages/home/home",
+    "pages/interact/interact",
+    "pages/words/words",
+    "pages/diary/diary",
+    "pages/stats/stats",
+    "pages/settings/settings",
+    "pages/token/token"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#ff6b9d",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "思念你",
+    "backgroundColor": "#fff0f5",
+    "backgroundTextStyle": "light",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#b0849c",
+    "selectedColor": "#ff6b9d",
+    "backgroundColor": "#fff5fa",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/home/home", "text": "思念" },
+      { "pagePath": "pages/interact/interact", "text": "互动" },
+      { "pagePath": "pages/words/words", "text": "情话" },
+      { "pagePath": "pages/diary/diary", "text": "日记" },
+      { "pagePath": "pages/stats/stats", "text": "统计" }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}
