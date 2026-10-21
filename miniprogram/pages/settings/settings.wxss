@@ -13,4 +13,10 @@
 .danger { background: #fff6f6; }
 .danger-btn { color: #e84393; border-color: #ffb3d1; }
 
+.status { font-size: 26rpx; color: #b07a93; }
+.dot { font-weight: 700; }
+.dot.ok { color: #2ecc71; }
+.dot.bad { color: #e74c3c; }
+.health { font-size: 24rpx; color: #5b3a4b; margin-top: 12rpx; }
+
 .about { text-align: center; font-size: 24rpx; color: #c9a8b8; margin-top: 40rpx; }

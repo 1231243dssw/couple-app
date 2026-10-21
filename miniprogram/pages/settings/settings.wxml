@@ -10,11 +10,17 @@
 
   <view class="card">
     <view class="card-title">服务地址（高级）</view>
-    <view class="card-desc">后端未运行时思念无法送达。把下面地址改成你电脑/服务器的 IP 或域名。</view>
+    <view class="card-desc">思念需要后端实时服务。默认已指向已上线的公网服务；若你自行部署，可在此修改。</view>
     <view class="field-label">HTTP 地址</view>
-    <input class="input" value="{{serverUrl}}" bindinput="onServer" placeholder="http://192.168.x.x:3000" />
+    <input class="input" value="{{serverUrl}}" bindinput="onServer" placeholder="https://你的域名" />
     <view class="field-label mt-20">WebSocket 地址</view>
-    <input class="input" value="{{wsUrl}}" bindinput="onWs" placeholder="ws://192.168.x.x:3000" />
+    <input class="input" value="{{wsUrl}}" bindinput="onWs" placeholder="wss://你的域名" />
+    <view class="field-label mt-20">访问令牌 (sharecode)</view>
+    <input class="input" value="{{shareCode}}" bindinput="onShare" placeholder="发布平台提供的 sharecode" />
+
+    <view class="status mt-20">实时连接：<text class="dot {{connClass}}">{{connStatus}}</text></view>
+    <button class="btn btn-ghost mt-20" bindtap="testConn">测试后端连接</button>
+    <view wx:if="{{health}}" class="health">{{health}}</view>
     <button class="btn btn-primary mt-20" bindtap="saveServer">保存并应用</button>
   </view>
 

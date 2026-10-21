@@ -7,7 +7,12 @@ Page({
     code: '',
     serverUrl: '',
     wsUrl: '',
+    shareCode: '',
+    connStatus: '未连接 💔',
+    connClass: 'bad',
+    health: '',
   },
+
   onShow() {
     const g = app.globalData;
     this.setData({
@@ -16,18 +21,64 @@ Page({
       code: g.roomCode,
       serverUrl: g.serverUrl,
       wsUrl: g.wsUrl,
+      shareCode: g.shareCode || '',
+    });
+    this.refreshConn();
+    // 持续反映实时连接状态
+    this.timer = setInterval(() => this.refreshConn(), 800);
+  },
+
+  onHide() { if (this.timer) { clearInterval(this.timer); this.timer = null; } },
+  onUnload() { if (this.timer) { clearInterval(this.timer); this.timer = null; } },
+
+  refreshConn() {
+    const ok = !!app.globalData.wsReady;
+    this.setData({
+      connStatus: ok ? '已连接 💚' : '未连接 💔',
+      connClass: ok ? 'ok' : 'bad',
     });
   },
+
   onServer(e) { this.setData({ serverUrl: e.detail.value }); },
   onWs(e) { this.setData({ wsUrl: e.detail.value }); },
+  onShare(e) { this.setData({ shareCode: e.detail.value }); },
+
   saveServer() {
-    app.setServer(this.data.serverUrl.trim(), this.data.wsUrl.trim());
+    const s = (this.data.serverUrl || '').trim();
+    const w = (this.data.wsUrl || '').trim();
+    const sc = (this.data.shareCode || '').trim();
+    if (!s || !w) {
+      wx.showToast({ title: '地址不能为空', icon: 'none' });
+      return;
+    }
+    app.setServer(s, w, sc);
     app.connectWS();
     wx.showToast({ title: '已保存，重连中', icon: 'none' });
+    setTimeout(() => this.refreshConn(), 1200);
   },
+
+  testConn() {
+    const s = (this.data.serverUrl || '').trim();
+    const sc = (this.data.shareCode || '').trim();
+    if (!s) { wx.showToast({ title: '请先填写 HTTP 地址', icon: 'none' }); return; }
+    this.setData({ health: '测试中…' });
+    const sep = s.indexOf('?') >= 0 ? '&' : '?';
+    wx.request({
+      url: s + '/api/health' + sep + 'sharecode=' + encodeURIComponent(sc),
+      method: 'GET',
+      success: (res) => {
+        this.setData({ health: res.statusCode === 200 ? '✅ 后端可达（状态码 200）' : '❌ 状态码 ' + res.statusCode });
+      },
+      fail: (err) => {
+        this.setData({ health: '❌ 连接失败：' + (err.errMsg || '未知错误') });
+      },
+    });
+  },
+
   copyCode() {
     wx.setClipboardData({ data: this.data.code, success: () => wx.showToast({ title: '已复制邀请码', icon: 'none' }) });
   },
+
   unbind() {
     wx.showModal({
       title: '解除绑定？',
