@@ -8,8 +8,7 @@ services:
     startCommand: node server.js
     healthCheckPath: /api/health
     envVars:
-      - key: PORT
-        value: "3000"
+      # 注意：PORT 不要写死，由 Render 自动注入（后端代码已用 process.env.PORT）
       - key: DATA_DIR
         value: /data
     # 持久化说明：
