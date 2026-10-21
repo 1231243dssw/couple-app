@@ -4,10 +4,18 @@ function base() {
   return app.globalData.serverUrl;
 }
 
+// 发布平台要求每个请求都带 sharecode 访问令牌
+function withShare(path) {
+  const app = getApp();
+  const sc = app.globalData.shareCode;
+  if (!sc) return path;
+  return path + (path.indexOf('?') >= 0 ? '&' : '?') + 'sharecode=' + sc;
+}
+
 function request(method, path, data) {
   return new Promise((resolve, reject) => {
     wx.request({
-      url: base() + path,
+      url: base() + withShare(path),
       method,
       data,
       header: { 'Content-Type': 'application/json' },

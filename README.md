@@ -46,14 +46,20 @@ npm start
 
 小程序需要知道后端在哪。两种方式二选一：
 
-- **方式 A（推荐）**：打开 `miniprogram/app.js`，修改顶部两行：
+- **方式 A（已默认指向公网，开箱即用）**：`miniprogram/app.js` 顶部已填好发布后的公网地址与访问令牌 `shareCode`：
+  ```js
+  serverUrl: 'https://couple-miss-backend.app.workbuddy.host',
+  wsUrl:     'wss://couple-miss-backend.app.workbuddy.host',
+  shareCode: 'U7W3ROOKF2',
+  ```
+  > 发布平台对每次请求都要求带 `?sharecode=U7W3ROOKF2`，`utils/api.js` 与 `app.js` 已自动拼接，无需手动处理。
+- **方式 B（本地调试）**：改回局域网 IP 连本地后端：
   ```js
   serverUrl: 'http://你的电脑局域网IP:3000',   // 例如 http://192.168.1.50:3000
   wsUrl:     'ws://你的电脑局域网IP:3000',
   ```
-- **方式 B**：进小程序「设置」页直接填并保存（会自动重连）。
-
-> 电脑上用 `ipconfig`(Windows) / `ifconfig`(Mac) 查局域网 IP。手机和电脑需在同一 Wi-Fi。
+  电脑上用 `ipconfig`(Windows) / `ifconfig`(Mac) 查局域网 IP，手机和电脑需在同一 Wi-Fi。
+- **方式 C**：进小程序「设置」页直接填地址与 shareCode 并保存（会自动重连）。
 
 ## 四、体验双人实时
 
@@ -77,14 +83,22 @@ npm start
 
 > 进阶：若日后想做「拍照识别对方」的人脸版本，需接入腾讯云人脸识别并落实单独同意/加密/影响评估等合规（详见可行性评估），本仓库当前采用零风险的信物码方案。
 
-## 五、上线到真机（公网）
+## 五、上线到真机（公网，已完成后端部署）
 
-详见 **[DEPLOY.md](./DEPLOY.md)**：已内置 `Dockerfile`，可一键部署到 Railway / Render / 自有云服务器，拿到公网 `https/wss` 地址后填进小程序即可让两人异地随时互连。
+后端**已经发布上线**，公网地址见上方「三、配置服务器地址」的默认值。详见 **[DEPLOY.md](./DEPLOY.md)**。
 
-1. 把 `backend/` 部署到一台有公网 IP 的服务器（或任意 Node 托管平台）。
-2. 用 **反向代理（Nginx 等）配上 HTTPS / WSS**：微信要求正式环境必须是 `https://` 与 `wss://`。
-3. 小程序后台「开发 → 开发管理 → 服务器域名 → socket 合法域名」加入你的 `wss://域名`；「request 合法域名」加入 `https://域名`。
-4. 小程序 `app.js` 里的 `serverUrl / wsUrl` 改成公网地址，上传代码提交审核发布。
+> ⚠️ 后端上线 ≠ 两人手机立刻能用。微信小程序有自己的分发与合规要求，你这边还需做两件事：
+
+1. **跑起小程序并分发到两台手机**：
+   - 用「微信开发者工具」导入 `miniprogram/` 目录，编译后可「真机预览」扫码在两台手机上体验；
+   - 正式给两人长期使用，需在微信公众平台填你自己的 **AppID** 并提交审核发布（或双方都用开发者工具/预览）。
+2. **配置服务器域名白名单**（正式发布必做；开发阶段可跳过）：
+   - 微信公众平台 → 开发 → 开发管理 → 开发设置 → 服务器域名：
+     - `request 合法域名` 加入：`https://couple-miss-backend.app.workbuddy.host`
+     - `socket 合法域名` 加入：`wss://couple-miss-backend.app.workbuddy.host`
+   - 开发阶段不想到处配置，可在开发者工具「详情 → 本地设置」勾选 **不校验合法域名、TLS 版本以及 HTTPS 证书**，即可直连公网后端。
+
+> 数据持久化：发布平台的文件系统为临时存储，重启/重部署会清空 `data/db.json`；如需长久保存思念记录、日记、卡片进度，请改用自有云服务器部署（见 DEPLOY.md 方式三）并挂载持久卷。
 
 ---
 

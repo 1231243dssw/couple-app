@@ -3,9 +3,10 @@ const EventBus = require('./utils/event.js');
 
 App({
   globalData: {
-    // ⚠️ 改成你的后端地址（微信开发者工具勾选“不校验合法域名”可先用 IP；真机上线需 https/wss + 域名白名单）
-    serverUrl: 'http://192.168.1.100:3000',
-    wsUrl: 'ws://192.168.1.100:3000',
+    // 已发布到公网的后端地址（WorkBuddy 应用发布平台），所有请求需带 sharecode 访问令牌
+    serverUrl: 'https://couple-miss-backend.app.workbuddy.host',
+    wsUrl: 'wss://couple-miss-backend.app.workbuddy.host',
+    shareCode: 'U7W3ROOKF2',
     userId: '',
     roomCode: '',
     who: 'A',
@@ -19,8 +20,10 @@ App({
   onLaunch() {
     const s = wx.getStorageSync('serverUrl');
     const ws = wx.getStorageSync('wsUrl');
+    const sc = wx.getStorageSync('shareCode');
     if (s) this.globalData.serverUrl = s;
     if (ws) this.globalData.wsUrl = ws;
+    if (sc) this.globalData.shareCode = sc;
 
     let uid = wx.getStorageSync('userId');
     if (!uid) {
@@ -41,12 +44,16 @@ App({
     return 'u_' + Math.random().toString(36).slice(2, 12);
   },
 
-  // 设置服务器地址
-  setServer(httpUrl, wsUrl) {
+  // 设置服务器地址（可附带 sharecode 访问令牌）
+  setServer(httpUrl, wsUrl, shareCode) {
     this.globalData.serverUrl = httpUrl;
     this.globalData.wsUrl = wsUrl;
     wx.setStorageSync('serverUrl', httpUrl);
     wx.setStorageSync('wsUrl', wsUrl);
+    if (shareCode) {
+      this.globalData.shareCode = shareCode;
+      wx.setStorageSync('shareCode', shareCode);
+    }
   },
 
   connectWS() {
@@ -57,7 +64,7 @@ App({
     }
     if (g._reconnectTimer) { clearTimeout(g._reconnectTimer); g._reconnectTimer = null; }
 
-    const url = `${g.wsUrl}/ws?code=${g.roomCode}&who=${g.who}&userId=${g.userId}`;
+    const url = `${g.wsUrl}/ws?code=${g.roomCode}&who=${g.who}&userId=${g.userId}&sharecode=${g.shareCode}`;
     const task = wx.connectSocket({ url, fail: () => {} });
     g.wsTask = task;
 
