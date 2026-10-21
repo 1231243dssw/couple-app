@@ -4,6 +4,10 @@ backend/node_modules/
 # 运行时数据（不入库；部署时由挂载卷 /data 持久化，详见 DEPLOY.md）
 backend/data/
 
+# 本地密钥（含数据库连接的 .env，切勿入库）
+.env
+backend/.env
+
 # 系统 / 编辑器
 .DS_Store
 Thumbs.db
