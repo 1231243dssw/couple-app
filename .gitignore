@@ -7,6 +7,8 @@ backend/data/
 # 本地密钥（含数据库连接的 .env，切勿入库）
 .env
 backend/.env
+*.env.example
+backend/.env*
 
 # 系统 / 编辑器
 .DS_Store
