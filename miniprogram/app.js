@@ -3,10 +3,11 @@ const EventBus = require('./utils/event.js');
 
 App({
   globalData: {
-    // 已发布到公网的后端地址（WorkBuddy 应用发布平台），所有请求需带 sharecode 访问令牌
-    serverUrl: 'https://couple-miss-backend.app.workbuddy.host',
-    wsUrl: 'wss://couple-miss-backend.app.workbuddy.host',
-    shareCode: 'U7W3ROOKF2',
+    // 开发阶段：直连本机后端（发布平台 app.workbuddy.host 的代理会拦截微信模拟器的请求，返回 403，
+    // 与代码无关；上真机/正式部署时在「设置」页改回公网地址，或改用自己的云服务器）
+    serverUrl: 'http://localhost:3000',
+    wsUrl: 'ws://localhost:3000',
+    shareCode: '',
     userId: '',
     roomCode: '',
     who: 'A',
@@ -21,9 +22,16 @@ App({
     const s = wx.getStorageSync('serverUrl');
     const ws = wx.getStorageSync('wsUrl');
     const sc = wx.getStorageSync('shareCode');
-    if (s) this.globalData.serverUrl = s;
-    if (ws) this.globalData.wsUrl = ws;
-    if (sc) this.globalData.shareCode = sc;
+    // 旧缓存若指向发布平台（平台会拦模拟器请求），直接弃用，避免一启动就 403
+    if (s && s.indexOf('app.workbuddy.host') >= 0) {
+      wx.removeStorageSync('serverUrl');
+      wx.removeStorageSync('wsUrl');
+      wx.removeStorageSync('shareCode');
+    } else {
+      if (s) this.globalData.serverUrl = s;
+      if (ws) this.globalData.wsUrl = ws;
+      if (sc) this.globalData.shareCode = sc;
+    }
 
     let uid = wx.getStorageSync('userId');
     if (!uid) {

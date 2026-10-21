@@ -1,9 +1,9 @@
 // utils/api.js —— REST 封装
-// 已上线的公网后端默认配置（发布平台提供），作为「兜底真值」
+// 兜底真值：与 app.js 的默认配置保持一致（开发阶段为本机后端）
 const APP_DEFAULT = {
-  serverUrl: 'https://couple-miss-backend.app.workbuddy.host',
-  wsUrl: 'wss://couple-miss-backend.app.workbuddy.host',
-  shareCode: 'U7W3ROOKF2',
+  serverUrl: 'http://localhost:3000',
+  wsUrl: 'ws://localhost:3000',
+  shareCode: '',
 };
 
 function getApp_() {
