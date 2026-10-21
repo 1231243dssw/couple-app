@@ -2,6 +2,9 @@
 const EventBus = require('./utils/event.js');
 
 App({
+  // 微信订阅消息模板 ID（在「微信公众平台-功能-订阅消息」申请一次性订阅模板后填到这里）
+  // 模板需含字段：thing1（提醒事项）、thing2（内容）、time3（时间）
+  WX_SUBSCRIBE_TMPL_ID: '',
   globalData: {
     // 临时局域网后端（本机运行，真机调试用，绕开平台拦截，无需公网/白名单）
     serverUrl: 'http://172.20.10.2:3000',
@@ -170,6 +173,13 @@ App({
         wx.vibrateShort();
         wx.showToast({ title: (msg.fromName || 'TA') + ' 解锁了一张爱意卡片 💌', icon: 'none' });
         EventBus.emit('card_unlocked', msg);
+        break;
+      case 'rps_result':
+        wx.vibrateShort();
+        EventBus.emit('rps_result', msg);
+        break;
+      case 'rps_wait':
+        EventBus.emit('rps_wait', msg);
         break;
       default:
         break;

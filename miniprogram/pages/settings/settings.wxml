@@ -25,6 +25,14 @@
     <button class="btn btn-ghost mt-20" bindtap="resetDefault">恢复默认配置</button>
   </view>
 
+  <view class="card wx-card">
+    <view class="card-title">🔔 微信提醒</view>
+    <view class="card-desc">开启后，TA 的「思念 / 抱抱 / 定时情话」会直接出现在你的微信里，不用打开小程序也能收到。</view>
+    <view class="wx-status">当前状态：<text class="wx-dot {{wxGranted ? 'on' : 'off'}}">{{wxStatusText}}</text></view>
+    <button class="btn btn-primary mt-20" bindtap="enableWx">开启微信提醒</button>
+    <view class="wx-tip">提示：微信一次性订阅，收到一次后需再次点此授权才能继续接收。</view>
+  </view>
+
   <view class="card danger">
     <view class="card-title">解除绑定</view>
     <view class="card-desc">会清除本机绑定信息（TA 端不受影响，可重新加入）。</view>

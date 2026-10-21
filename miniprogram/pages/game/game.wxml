@@ -1,0 +1,23 @@
+<view class="page game">
+  <view class="g-head">
+    <view class="g-title">🎮 双人猜拳</view>
+    <view class="g-sub">远程也能一起玩，谁先出谁就赢一局</view>
+  </view>
+
+  <view class="status {{status}}">
+    <view class="status-text">{{statusText}}</view>
+    <view class="result {{resultClass}}" wx:if="{{status === 'result'}}">{{resultText}}</view>
+    <view class="vs" wx:if="{{status === 'waiting'}}">⏳ 等待 TA 出拳…</view>
+  </view>
+
+  <view class="hands">
+    <view class="hand {{item.k === myChoice ? 'picked' : ''}}" wx:for="{{choices}}" wx:key="k" data-k="{{item.k}}" bindtap="choose">
+      <view class="h-emoji">{{item.e}}</view>
+      <view class="h-label">{{item.label}}</view>
+    </view>
+  </view>
+
+  <view class="again" wx:if="{{status === 'result'}}" bindtap="again">再来一局 ↻</view>
+
+  <view class="g-tip">规则：石头赢剪刀，剪刀赢布，布赢石头。两边都在线时实时对战 💕</view>
+</view>

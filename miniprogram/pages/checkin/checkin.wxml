@@ -1,0 +1,33 @@
+<view class="page checkin">
+  <view class="c-head">
+    <view class="c-title">☀️ 每日打卡</view>
+    <view class="c-sub">每天来报到，连续的天数就是爱意的长度</view>
+  </view>
+
+  <view class="love-box">
+    <view class="lb-num">{{loveDays}}</view>
+    <view class="lb-lab">我们已经在一起的天数</view>
+  </view>
+
+  <view class="check-btn {{checkedToday ? 'done' : ''}}" bindtap="doCheckin">
+    <view class="cb-emoji">{{checkedToday ? '✅' : '🌅'}}</view>
+    <view class="cb-text">{{checkedToday ? '今天已打卡' : '今天打卡'}}</view>
+    <view class="cb-tip" wx:if="{{!checkedToday}}">轻轻一点，告诉 TA 你也在</view>
+    <view class="cb-tip" wx:else>明天记得再来哦</view>
+  </view>
+
+  <view class="streak-row">
+    <view class="s-card me">
+      <view class="s-num">{{myStreak}}</view>
+      <view class="s-lab">我的连续天数</view>
+      <view class="s-last" wx:if="{{myLast}}">上次 {{myLast}}</view>
+    </view>
+    <view class="s-card partner">
+      <view class="s-num">{{partnerStreak}}</view>
+      <view class="s-lab">TA 的连续天数</view>
+      <view class="s-last" wx:if="{{partnerLast}}">上次 {{partnerLast}}</view>
+    </view>
+  </view>
+
+  <view class="c-tip">每天不间断，连续天数就会一直涨；哪天忘了也没关系，明天重新连上就好 💪</view>
+</view>

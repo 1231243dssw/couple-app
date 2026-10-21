@@ -1,0 +1,23 @@
+<view class="page wish">
+  <view class="w-head">
+    <view class="w-title">🌟 愿望清单</view>
+    <view class="w-sub">一起攒下想做的事，已完成 {{doneCount}}/{{list.length}}</view>
+  </view>
+
+  <view class="add-bar">
+    <input class="w-input" placeholder="写下一个小愿望…" value="{{text}}" bindinput="onText" confirm-type="done" bindconfirm="add" maxlength="40" />
+    <view class="w-add" bindtap="add">添加</view>
+  </view>
+
+  <view class="list">
+    <view class="w-card {{item.done ? 'done' : ''}}" wx:for="{{list}}" wx:key="id">
+      <view class="w-check {{item.done ? 'on' : ''}}" data-id="{{item.id}}" data-done="{{item.done}}" bindtap="toggle">{{item.done ? '✓' : ''}}</view>
+      <view class="w-body">
+        <view class="w-text {{item.done ? 'strike' : ''}}">{{item.text}}</view>
+        <view class="w-by">{{item.byMe ? '我' : 'TA'}} 的心愿</view>
+      </view>
+      <view class="w-del" data-id="{{item.id}}" bindtap="del">×</view>
+    </view>
+    <view class="empty" wx:if="{{list.length === 0}}">愿望清单还是空的，写下一个一起去做的事吧 🌈</view>
+  </view>
+</view>

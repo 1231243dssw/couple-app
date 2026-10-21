@@ -1,0 +1,41 @@
+<view class="page travel">
+  <view class="t-head">
+    <view class="t-title">📍 旅游打卡</view>
+    <view class="t-sub">带着定位与照片，把风景留给我们</view>
+  </view>
+
+  <view class="list">
+    <view class="t-card" wx:for="{{list}}" wx:key="id">
+      <image class="t-photo" src="{{item.photoUrl}}" mode="aspectFill" wx:if="{{item.photoUrl}}" />
+      <view class="t-info">
+        <view class="t-name">{{item.name || '某个地方'}}</view>
+        <view class="t-note" wx:if="{{item.note}}">{{item.note}}</view>
+        <view class="t-meta">{{item.timeText}} · {{item.byMe ? '我' : 'TA'}} 打卡</view>
+        <view class="t-loc" wx:if="{{item.lat}}">📌 {{item.lat}}, {{item.lng}}</view>
+      </view>
+      <view class="t-del" data-id="{{item.id}}" bindtap="del">×</view>
+    </view>
+    <view class="empty" wx:if="{{list.length === 0}}">还没有打卡记录，去旅行时记得留下足迹 🌍</view>
+  </view>
+
+  <view class="fab" bindtap="openForm">＋ 去打卡</view>
+
+  <view class="mask" wx:if="{{formShow}}" bindtap="closeForm">
+    <view class="sheet" catchtap="noop">
+      <view class="s-title">留下这一刻</view>
+      <view class="loc-bar {{located ? 'on' : ''}}" bindtap="getLocation">
+        {{located ? '📍 已定位' : '📍 获取当前定位'}}
+      </view>
+      <input class="s-input" placeholder="地点名称（如：东湖）" value="{{name}}" bindinput="onName" maxlength="20" />
+      <textarea class="s-area" placeholder="写句话吧（选填）" value="{{note}}" bindinput="onNote" maxlength="60" />
+      <view class="photo-box" bindtap="choosePhoto">
+        <image wx:if="{{photoPreview}}" class="photo-prev" src="{{photoPreview}}" mode="aspectFill" />
+        <view wx:else class="photo-ph">📷 选一张照片</view>
+      </view>
+      <view class="s-btns">
+        <view class="s-cancel" bindtap="closeForm">取消</view>
+        <view class="s-ok" bindtap="submit">{{uploading ? '上传中…' : '打卡'}}</view>
+      </view>
+    </view>
+  </view>
+</view>

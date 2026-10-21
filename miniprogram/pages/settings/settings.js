@@ -1,4 +1,5 @@
 const app = getApp();
+const api = require('../../utils/api.js');
 
 Page({
   data: {
@@ -11,6 +12,8 @@ Page({
     connStatus: '未连接 💔',
     connClass: 'bad',
     health: '',
+    wxGranted: false,
+    wxStatusText: '未开启',
   },
 
   onShow() {
@@ -22,6 +25,8 @@ Page({
       serverUrl: g.serverUrl,
       wsUrl: g.wsUrl,
       shareCode: g.shareCode || '',
+      wxGranted: !!wx.getStorageSync('wxNotify'),
+      wxStatusText: wx.getStorageSync('wxNotify') ? '已开启 🔔' : '未开启',
     });
     this.refreshConn();
     // 持续反映实时连接状态
@@ -85,6 +90,52 @@ Page({
 
   copyCode() {
     wx.setClipboardData({ data: this.data.code, success: () => wx.showToast({ title: '已复制邀请码', icon: 'none' }) });
+  },
+
+  // 微信提醒：登录拿 openid + 申请订阅消息授权
+  enableWx() {
+    const g = app.globalData;
+    if (!g.roomCode) { wx.showToast({ title: '请先绑定房间', icon: 'none' }); return; }
+    const tmpl = app.WX_SUBSCRIBE_TMPL_ID;
+    if (!tmpl) {
+      wx.showModal({
+        title: '还没配置订阅模板',
+        content: '需要先在「微信公众平台-订阅消息」申请一次性订阅模板，并把模板 ID 填到 app.js 的 WX_SUBSCRIBE_TMPL_ID。',
+        showCancel: false,
+      });
+      return;
+    }
+    wx.login({
+      success: async (res) => {
+        if (res.code) {
+          try {
+            await api.wxLogin(res.code, g.who, g.roomCode);
+          } catch (e) {
+            // 服务端未配置 AppSecret 时无法存 openid，但订阅授权仍可记录
+            console.warn('wxLogin 失败：', e.message);
+          }
+        }
+        wx.requestSubscribeMessage({
+          tmplIds: [tmpl],
+          success: async (r) => {
+            if (r[tmpl] === 'accept') {
+              try {
+                await api.wxSubscribe(g.roomCode, g.who, tmpl);
+                wx.setStorageSync('wxNotify', true);
+                this.setData({ wxGranted: true, wxStatusText: '已开启 🔔' });
+                wx.showToast({ title: '已开启微信提醒 🔔', icon: 'none' });
+              } catch (e) {
+                wx.showToast({ title: '授权记录失败：' + (e.message || ''), icon: 'none' });
+              }
+            } else {
+              wx.showToast({ title: '未授权，收不到提醒', icon: 'none' });
+            }
+          },
+          fail: () => wx.showToast({ title: '订阅授权被取消', icon: 'none' }),
+        });
+      },
+      fail: () => wx.showToast({ title: '微信登录失败', icon: 'none' }),
+    });
   },
 
   unbind() {

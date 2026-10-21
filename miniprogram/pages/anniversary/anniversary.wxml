@@ -1,0 +1,46 @@
+<view class="page anni">
+  <view class="a-head">
+    <view class="a-title">💕 纪念日 · 倒数日</view>
+    <view class="a-sub" wx:if="{{togetherSince}}">从 {{togetherSince}} 起，已经相爱 {{loveDays}} 天</view>
+    <view class="a-sub" wx:else>记录每一个值得纪念的日子</view>
+  </view>
+
+  <view class="love-box" wx:if="{{loveDays > 0}}">
+    <view class="lb-num">{{loveDays}}</view>
+    <view class="lb-lab">我们已经在一起的天数</view>
+  </view>
+
+  <view class="list">
+    <view class="a-card" wx:for="{{list}}" wx:key="id">
+      <view class="a-left">
+        <view class="a-name">{{item.title}}</view>
+        <view class="a-date">{{item.date}}</view>
+      </view>
+      <view class="a-right">
+        <view class="a-cd">{{item.cd}}</view>
+        <view class="a-del" data-id="{{item.id}}" data-name="{{item.title}}" bindtap="del">删除</view>
+      </view>
+    </view>
+    <view class="empty" wx:if="{{list.length === 0}}">还没有记下任何日子，点下面的按钮添加吧 ✍️</view>
+  </view>
+
+  <view class="fab" bindtap="openForm">＋ 添加纪念日</view>
+
+  <!-- 添加表单 -->
+  <view class="mask" wx:if="{{formShow}}" bindtap="closeForm">
+    <view class="sheet" catchtap="noop">
+      <view class="s-title">记下重要的日子</view>
+      <input class="s-input" placeholder="例如：第一次见面" value="{{title}}" bindinput="onTitle" maxlength="20" />
+      <picker mode="date" value="{{date}}" bindchange="onDate">
+        <view class="s-picker">📅 日期：{{date || '请选择'}}</view>
+      </picker>
+      <picker mode="selector" range="{{types}}" range-key="label" value="{{typeIndex}}" bindchange="onType">
+        <view class="s-picker">🏷️ 类型：{{types[typeIndex].label}}</view>
+      </picker>
+      <view class="s-btns">
+        <view class="s-cancel" bindtap="closeForm">取消</view>
+        <view class="s-ok" bindtap="save">保存</view>
+      </view>
+    </view>
+  </view>
+</view>

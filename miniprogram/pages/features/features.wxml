@@ -1,0 +1,17 @@
+<view class="page features">
+  <view class="f-head">
+    <view class="f-title">✨ 功能广场</view>
+    <view class="f-sub">为你们的小世界，添一点新意</view>
+  </view>
+
+  <view class="f-grid">
+    <view class="f-card" wx:for="{{items}}" wx:key="key" data-url="{{item.url}}" bindtap="open">
+      <view class="f-emoji">{{item.emoji}}</view>
+      <view class="f-name">{{item.name}}</view>
+      <view class="f-desc">{{item.desc}}</view>
+      <view class="f-go">进入 ›</view>
+    </view>
+  </view>
+
+  <view class="f-tip">提示：思念、抱抱、情话都能在微信里直接收到，记得在「微信提醒」里开启授权 🔔</view>
+</view>

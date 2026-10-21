@@ -98,8 +98,8 @@ module.exports = {
   getSchedules(code) {
     return request('GET', `/api/schedule/${code}`);
   },
-  addSchedule(code, text, time, createdBy) {
-    return request('POST', '/api/schedule', { code, text, time, createdBy });
+  addSchedule(code, text, time, createdBy, opts) {
+    return request('POST', '/api/schedule', { code, text, time, createdBy, date: opts && opts.date, repeat: opts && opts.repeat, weekday: opts && opts.weekday });
   },
   updateSchedule(id, patch) {
     return request('PUT', '/api/schedule', { id, patch });
@@ -134,5 +134,58 @@ module.exports = {
   },
   cardDeck() {
     return request('GET', `/api/cards`);
+  },
+  // ---------------- 恋爱起始日 / 纪念日 ----------------
+  setTogether(code, ts) {
+    return request('POST', `/api/room/${code}/together`, { ts });
+  },
+  getAnniversaries(code) {
+    return request('GET', `/api/anni/${code}`);
+  },
+  addAnniversary(code, title, date, type, createdBy) {
+    return request('POST', '/api/anni', { code, title, date, type, createdBy });
+  },
+  updateAnniversary(id, patch) {
+    return request('PUT', '/api/anni', { id, patch });
+  },
+  deleteAnniversary(id) {
+    return request('DELETE', `/api/anni/${id}`);
+  },
+  // ---------------- 每日打卡 ----------------
+  checkin(code, who) {
+    return request('POST', '/api/checkin', { code, who });
+  },
+  getCheckin(code) {
+    return request('GET', `/api/checkin/${code}`);
+  },
+  // ---------------- 共享愿望清单 ----------------
+  getWishes(code) {
+    return request('GET', `/api/wish/${code}`);
+  },
+  addWish(code, text, by) {
+    return request('POST', '/api/wish', { code, text, by });
+  },
+  updateWish(id, patch) {
+    return request('PUT', '/api/wish', { id, patch });
+  },
+  deleteWish(id) {
+    return request('DELETE', `/api/wish/${id}`);
+  },
+  // ---------------- 旅游打卡 ----------------
+  getTravels(code) {
+    return request('GET', `/api/travel/${code}`);
+  },
+  addTravel(code, who, lat, lng, name, note, photo) {
+    return request('POST', '/api/travel', { code, who, lat, lng, name, note, photo });
+  },
+  deleteTravel(id) {
+    return request('DELETE', `/api/travel/${id}`);
+  },
+  // ---------------- 微信登录 & 订阅消息 ----------------
+  wxLogin(code, who, roomCode) {
+    return request('POST', '/api/wx/login', { code, who, roomCode });
+  },
+  wxSubscribe(code, who, templateId) {
+    return request('POST', '/api/wx/subscribe', { code, who, templateId });
   },
 };

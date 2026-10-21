@@ -59,6 +59,12 @@
 .tc-title { font-size: 32rpx; font-weight: 700; color: #5b3a4b; }
 .tc-desc { font-size: 24rpx; color: #b07a93; margin-top: 8rpx; }
 .tc-arrow { font-size: 56rpx; color: #e84393; margin-left: 16rpx; }
+
+.feature-card { display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, #e7f0ff, #ffe9f3); margin-top: 22rpx; }
+.fc-left { flex: 1; }
+.fc-title { font-size: 32rpx; font-weight: 700; color: #5b3a4b; }
+.fc-desc { font-size: 24rpx; color: #b07a93; margin-top: 8rpx; line-height: 1.4; }
+.fc-arrow { font-size: 56rpx; color: #e84393; margin-left: 16rpx; }
 .q-item {
   flex: 1; background: rgba(255,255,255,0.8); border-radius: 24rpx;
   padding: 28rpx 0; text-align: center;

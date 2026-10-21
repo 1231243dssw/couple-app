@@ -1,0 +1,51 @@
+.page.wish {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #fff0f5 0%, #fdeef6 100%);
+  padding: 40rpx 32rpx 60rpx;
+  box-sizing: border-box;
+}
+.w-head { margin-bottom: 24rpx; }
+.w-title { font-size: 44rpx; font-weight: 700; color: #d6336c; }
+.w-sub { font-size: 26rpx; color: #b0849c; margin-top: 8rpx; }
+
+.add-bar {
+  display: flex;
+  gap: 16rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 12rpx 12rpx 12rpx 28rpx;
+  box-shadow: 0 8rpx 22rpx rgba(255,107,157,0.1);
+  margin-bottom: 28rpx;
+  align-items: center;
+}
+.w-input { flex: 1; font-size: 30rpx; height: 72rpx; }
+.w-add {
+  background: linear-gradient(135deg, #ff9ec4, #e84393);
+  color: #fff; font-size: 28rpx; font-weight: 700;
+  padding: 18rpx 36rpx; border-radius: 18rpx;
+}
+
+.w-card {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 22rpx;
+  padding: 26rpx 28rpx;
+  margin-bottom: 18rpx;
+  box-shadow: 0 8rpx 22rpx rgba(255,107,157,0.1);
+}
+.w-card.done { opacity: 0.7; }
+.w-check {
+  width: 52rpx; height: 52rpx; border-radius: 50%;
+  border: 3rpx solid #e0c3d2; margin-right: 22rpx;
+  text-align: center; line-height: 52rpx; color: #fff; font-size: 32rpx;
+  flex-shrink: 0;
+}
+.w-check.on { background: #7bc96f; border-color: #7bc96f; }
+.w-body { flex: 1; }
+.w-text { font-size: 32rpx; color: #5b3a4b; line-height: 1.4; }
+.w-text.strike { text-decoration: line-through; color: #b0a0ac; }
+.w-by { font-size: 22rpx; color: #c9a9b8; margin-top: 6rpx; }
+.w-del { font-size: 44rpx; color: #d9b8c6; padding: 0 10rpx; }
+
+.empty { text-align: center; color: #b0849c; font-size: 26rpx; padding: 60rpx 0; }

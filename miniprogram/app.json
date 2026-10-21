@@ -8,7 +8,13 @@
     "pages/diary/diary",
     "pages/stats/stats",
     "pages/settings/settings",
-    "pages/token/token"
+    "pages/token/token",
+    "pages/features/features",
+    "pages/anniversary/anniversary",
+    "pages/checkin/checkin",
+    "pages/wish/wish",
+    "pages/game/game",
+    "pages/travel/travel"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ff6b9d",
@@ -33,5 +39,11 @@
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json",
-  "lazyCodeLoading": "requiredComponents"
+  "lazyCodeLoading": "requiredComponents",
+  "requiredPrivateInfos": ["getLocation"],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于记录旅游打卡的地点"
+    }
+  }
 }

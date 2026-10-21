@@ -61,6 +61,15 @@
     <view class="tc-arrow">›</view>
   </view>
 
+  <!-- 功能广场 -->
+  <view class="card feature-card" bindtap="toFeatures">
+    <view class="fc-left">
+      <view class="fc-title">✨ 功能广场</view>
+      <view class="fc-desc">纪念日 · 每日打卡 · 愿望清单 · 小游戏 · 旅游打卡</view>
+    </view>
+    <view class="fc-arrow">›</view>
+  </view>
+
   <!-- 快捷入口 -->
   <view class="quick">
     <view class="q-item" bindtap="toInteract"><view class="q-emoji">🤗</view><view class="q-name">互动</view></view>

@@ -115,4 +115,5 @@ Page({
   toWords() { wx.switchTab({ url: '/pages/words/words' }); },
   toStats() { wx.switchTab({ url: '/pages/stats/stats' }); },
   toToken() { wx.navigateTo({ url: '/pages/token/token' }); },
+  toFeatures() { wx.navigateTo({ url: '/pages/features/features' }); },
 });

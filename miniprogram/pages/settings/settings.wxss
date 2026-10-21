@@ -20,3 +20,10 @@
 .health { font-size: 24rpx; color: #5b3a4b; margin-top: 12rpx; }
 
 .about { text-align: center; font-size: 24rpx; color: #c9a8b8; margin-top: 40rpx; }
+
+.wx-card { background: linear-gradient(135deg, #fff0f6, #eaf3ff); }
+.wx-status { font-size: 26rpx; color: #b07a93; margin-top: 4rpx; }
+.wx-dot { font-weight: 700; }
+.wx-dot.on { color: #2ecc71; }
+.wx-dot.off { color: #e74c3c; }
+.wx-tip { font-size: 22rpx; color: #b0849c; margin-top: 14rpx; line-height: 1.5; }
