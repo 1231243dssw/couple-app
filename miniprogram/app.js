@@ -56,6 +56,22 @@ App({
     }
   },
 
+  // 恢复为已上线的公网默认配置（一键修复地址/令牌填错的情况）
+  resetToDefault() {
+    const d = {
+      serverUrl: 'https://couple-miss-backend.app.workbuddy.host',
+      wsUrl: 'wss://couple-miss-backend.app.workbuddy.host',
+      shareCode: 'U7W3ROOKF2',
+    };
+    this.globalData.serverUrl = d.serverUrl;
+    this.globalData.wsUrl = d.wsUrl;
+    this.globalData.shareCode = d.shareCode;
+    wx.setStorageSync('serverUrl', d.serverUrl);
+    wx.setStorageSync('wsUrl', d.wsUrl);
+    wx.setStorageSync('shareCode', d.shareCode);
+    return d;
+  },
+
   connectWS() {
     const g = this.globalData;
     if (!g.roomCode) return;

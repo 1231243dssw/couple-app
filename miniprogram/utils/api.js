@@ -1,27 +1,84 @@
 // utils/api.js —— REST 封装
-function base() {
-  const app = getApp();
-  return app.globalData.serverUrl;
+// 已上线的公网后端默认配置（发布平台提供），作为「兜底真值」
+const APP_DEFAULT = {
+  serverUrl: 'https://couple-miss-backend.app.workbuddy.host',
+  wsUrl: 'wss://couple-miss-backend.app.workbuddy.host',
+  shareCode: 'U7W3ROOKF2',
+};
+
+function getApp_() {
+  return getApp();
 }
 
-// 发布平台要求每个请求都带 sharecode 访问令牌
-function withShare(path) {
-  const app = getApp();
-  const sc = app.globalData.shareCode;
-  if (!sc) return path;
-  return path + (path.indexOf('?') >= 0 ? '&' : '?') + 'sharecode=' + sc;
+// 拼接 sharecode 访问令牌
+function withShare(path, shareCode) {
+  if (!shareCode) return path;
+  return path + (path.indexOf('?') >= 0 ? '&' : '?') + 'sharecode=' + shareCode;
 }
 
-function request(method, path, data) {
+function activeServerUrl() {
+  return getApp_().globalData.serverUrl || APP_DEFAULT.serverUrl;
+}
+function activeShareCode() {
+  return getApp_().globalData.shareCode || APP_DEFAULT.shareCode;
+}
+
+// 把正确的默认配置写回，避免每次请求都走一次回退重试
+function healToDefault() {
+  const app = getApp_();
+  app.globalData.serverUrl = APP_DEFAULT.serverUrl;
+  app.globalData.wsUrl = APP_DEFAULT.wsUrl;
+  app.globalData.shareCode = APP_DEFAULT.shareCode;
+  wx.setStorageSync('serverUrl', APP_DEFAULT.serverUrl);
+  wx.setStorageSync('wsUrl', APP_DEFAULT.wsUrl);
+  wx.setStorageSync('shareCode', APP_DEFAULT.shareCode);
+}
+
+// 真正发一次请求
+function doRequest(url, method, data) {
   return new Promise((resolve, reject) => {
     wx.request({
-      url: base() + withShare(path),
+      url,
       method,
       data,
       header: { 'Content-Type': 'application/json' },
-      success: (res) => resolve(res.data),
-      fail: (err) => reject(err),
+      success: (res) => {
+        if (res.statusCode < 200 || res.statusCode >= 300) {
+          reject({ statusCode: res.statusCode, data: res.data });
+          return;
+        }
+        // 返回的是字符串（多半是“链接不完整”那种 HTML 页）= 地址或令牌不对
+        if (typeof res.data === 'string') {
+          reject({ statusCode: 0, html: true, data: res.data });
+          return;
+        }
+        resolve(res.data);
+      },
+      fail: (err) => reject({ netError: (err && err.errMsg) || '网络错误，检查服务器地址' }),
     });
+  });
+}
+
+function request(method, path, data) {
+  const url1 = activeServerUrl() + withShare(path, activeShareCode());
+  return doRequest(url1, method, data).catch((err) => {
+    // 命中“缺/错令牌”类失败（平台返回 403 或 HTML 页）：自动用默认配置重试一次
+    const isTokenFail =
+      err.statusCode === 403 || err.html === true || /链接不完整/.test(String(err.data || ''));
+    if (isTokenFail) {
+      const url2 = APP_DEFAULT.serverUrl + withShare(path, APP_DEFAULT.shareCode);
+      return doRequest(url2, method, data).then((ok) => {
+        healToDefault(); // 顺手修好本地配置，下次不再重试
+        return ok;
+      }).catch((e2) => {
+        if (e2.netError) throw new Error(e2.netError);
+        if (e2.html) throw new Error('返回了网页不是数据，检查服务器地址 / sharecode 是否正确');
+        throw new Error('HTTP ' + (e2.statusCode || '?') + '：后端返回异常');
+      });
+    }
+    if (err.netError) throw new Error(err.netError);
+    if (err.html) throw new Error('返回了网页不是数据，检查服务器地址 / sharecode 是否正确');
+    throw new Error('HTTP ' + (err.statusCode || '?') + '：后端返回异常');
   });
 }
 
@@ -76,6 +133,6 @@ module.exports = {
     return request('POST', `/api/room/${code}/unlock`, { who, token });
   },
   cardDeck() {
-    return request('GET', '/api/cards');
+    return request('GET', `/api/cards`);
   },
 };

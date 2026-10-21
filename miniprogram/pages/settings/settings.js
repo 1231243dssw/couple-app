@@ -57,6 +57,14 @@ Page({
     setTimeout(() => this.refreshConn(), 1200);
   },
 
+  resetDefault() {
+    const d = app.resetToDefault();
+    this.setData({ serverUrl: d.serverUrl, wsUrl: d.wsUrl, shareCode: d.shareCode });
+    app.connectWS();
+    wx.showToast({ title: '已恢复默认配置', icon: 'none' });
+    setTimeout(() => this.refreshConn(), 1200);
+  },
+
   testConn() {
     const s = (this.data.serverUrl || '').trim();
     const sc = (this.data.shareCode || '').trim();

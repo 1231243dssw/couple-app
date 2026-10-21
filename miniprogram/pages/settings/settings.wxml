@@ -22,6 +22,7 @@
     <button class="btn btn-ghost mt-20" bindtap="testConn">测试后端连接</button>
     <view wx:if="{{health}}" class="health">{{health}}</view>
     <button class="btn btn-primary mt-20" bindtap="saveServer">保存并应用</button>
+    <button class="btn btn-ghost mt-20" bindtap="resetDefault">恢复默认配置</button>
   </view>
 
   <view class="card danger">

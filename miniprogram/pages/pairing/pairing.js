@@ -41,7 +41,7 @@ Page({
       this.pollBound(res.code);
     } catch (e) {
       wx.hideLoading();
-      wx.showToast({ title: '网络错误，检查后端地址', icon: 'none' });
+      wx.showToast({ title: (e && e.message) || '网络错误，检查后端地址', icon: 'none' });
     }
   },
 
