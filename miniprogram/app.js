@@ -3,10 +3,10 @@ const EventBus = require('./utils/event.js');
 
 App({
   globalData: {
-    // 已上线的公网后端（WorkBuddy 应用发布平台），所有请求需带 sharecode 访问令牌
-    serverUrl: 'https://couple-miss-backend.app.workbuddy.host',
-    wsUrl: 'wss://couple-miss-backend.app.workbuddy.host',
-    shareCode: 'U7W3ROOKF2',
+    // 临时局域网后端（本机运行，真机调试用，绕开平台拦截，无需公网/白名单）
+    serverUrl: 'http://10.15.20.31:3000',
+    wsUrl: 'ws://10.15.20.31:3000',
+    shareCode: '',
     userId: '',
     roomCode: '',
     who: 'A',
@@ -63,12 +63,12 @@ App({
     }
   },
 
-  // 恢复为已上线的公网默认配置（一键修复地址/令牌填错的情况）
+  // 恢复为本机局域网默认配置（一键修复地址/令牌填错的情况）
   resetToDefault() {
     const d = {
-      serverUrl: 'https://couple-miss-backend.app.workbuddy.host',
-      wsUrl: 'wss://couple-miss-backend.app.workbuddy.host',
-      shareCode: 'U7W3ROOKF2',
+      serverUrl: 'http://10.15.20.31:3000',
+      wsUrl: 'ws://10.15.20.31:3000',
+      shareCode: '',
     };
     this.globalData.serverUrl = d.serverUrl;
     this.globalData.wsUrl = d.wsUrl;
