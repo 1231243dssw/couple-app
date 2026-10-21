@@ -17,3 +17,7 @@ Thumbs.db
 
 # WorkBuddy 本地数据
 .workbuddy/
+
+# 微信开发者工具私密配置（含本机 AppID，按惯例不入库）
+project.private.config.json
+**/project.private.config.json
