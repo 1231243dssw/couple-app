@@ -71,14 +71,14 @@ function request(method, path, data) {
         healToDefault(); // 顺手修好本地配置，下次不再重试
         return ok;
       }).catch((e2) => {
-        if (e2.netError) throw new Error(e2.netError);
-        if (e2.html) throw new Error('返回了网页不是数据，检查服务器地址 / sharecode 是否正确');
-        throw new Error('HTTP ' + (e2.statusCode || '?') + '：后端返回异常');
+        if (e2.netError) throw new Error('【甲】网络错误：请求没发出去，多半是没勾「不校验合法域名」');
+        if (e2.html) throw new Error('【乙】返回了网页不是数据，地址填错');
+        throw new Error('【丙】自愈重试仍403：模拟器请求被平台拦了，需换本地后端或真实AppID');
       });
     }
-    if (err.netError) throw new Error(err.netError);
-    if (err.html) throw new Error('返回了网页不是数据，检查服务器地址 / sharecode 是否正确');
-    throw new Error('HTTP ' + (err.statusCode || '?') + '：后端返回异常');
+    if (err.netError) throw new Error('【甲】网络错误：请求没发出去，多半是没勾「不校验合法域名」');
+    if (err.html) throw new Error('【乙】返回了网页不是数据，地址填错');
+    throw new Error('【丁】HTTP ' + (err.statusCode || '?') + '：其它异常');
   });
 }
 
