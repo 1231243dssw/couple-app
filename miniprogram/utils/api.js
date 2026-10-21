@@ -1,8 +1,8 @@
 // utils/api.js —— REST 封装
 // 兜底真值：与 app.js 的默认配置保持一致（已上线的公网后端，需带 sharecode）
 const APP_DEFAULT = {
-  serverUrl: 'http://10.15.20.31:3000',
-  wsUrl: 'ws://10.15.20.31:3000',
+  serverUrl: 'http://172.20.10.2:3000',
+  wsUrl: 'ws://172.20.10.2:3000',
   shareCode: '',
 };
 

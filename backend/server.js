@@ -355,9 +355,9 @@ setInterval(scheduleTick, 30 * 1000);
 // 立即跑一次，避免启动后等待
 scheduleTick();
 
-server.listen(PORT, () => {
-  console.log('❤️  情侣思念后端已启动: http://localhost:' + PORT);
-  console.log('   WebSocket: ws://localhost:' + PORT + '/ws');
+server.listen(PORT, '0.0.0.0', () => {
+  console.log('❤️  情侣思念后端已启动: http://0.0.0.0:' + PORT);
+  console.log('   WebSocket: ws://0.0.0.0:' + PORT + '/ws');
 });
 
 module.exports = { app, server };

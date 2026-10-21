@@ -4,8 +4,8 @@ const EventBus = require('./utils/event.js');
 App({
   globalData: {
     // 临时局域网后端（本机运行，真机调试用，绕开平台拦截，无需公网/白名单）
-    serverUrl: 'http://10.15.20.31:3000',
-    wsUrl: 'ws://10.15.20.31:3000',
+    serverUrl: 'http://172.20.10.2:3000',
+    wsUrl: 'ws://172.20.10.2:3000',
     shareCode: '',
     userId: '',
     roomCode: '',
@@ -66,8 +66,8 @@ App({
   // 恢复为本机局域网默认配置（一键修复地址/令牌填错的情况）
   resetToDefault() {
     const d = {
-      serverUrl: 'http://10.15.20.31:3000',
-      wsUrl: 'ws://10.15.20.31:3000',
+      serverUrl: 'http://172.20.10.2:3000',
+      wsUrl: 'ws://172.20.10.2:3000',
       shareCode: '',
     };
     this.globalData.serverUrl = d.serverUrl;
