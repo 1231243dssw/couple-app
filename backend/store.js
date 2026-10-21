@@ -41,49 +41,11 @@ function load() {
 
 let db = load();
 
-// -------- 可选的 Postgres 持久化镜像（免费外部数据库，重启不丢数据）--------
-// 设置环境变量 DATABASE_URL 即启用；未设置时完全退化为本地 JSON，行为不变。
-let pgPool = null;
-let pgReady = false;
-let USE_PG = !!process.env.DATABASE_URL;
-
-async function initMirror() {
-  if (!USE_PG) return;
-  try {
-    const { Pool } = require('pg');
-    pgPool = new Pool({
-      connectionString: process.env.DATABASE_URL,
-      ssl: { rejectUnauthorized: false },
-      connectionTimeoutMillis: 5000,
-    });
-    await pgPool.query(
-      'CREATE TABLE IF NOT EXISTS app_state (id text primary key, data jsonb, updated_at timestamptz default now())'
-    );
-    const r = await pgPool.query("SELECT data FROM app_state WHERE id='main'");
-    if (r.rows.length && r.rows[0].data) {
-      db = r.rows[0].data;
-      console.log('❤️  已从外部数据库恢复历史数据');
-    }
-    pgReady = true;
-  } catch (e) {
-    console.error('⚠️  Postgres 镜像初始化失败，回退到本地 JSON：', e.message);
-    USE_PG = false;
-  }
-}
-
 function persist() {
   ensureDir();
   const tmp = DATA_FILE + '.tmp';
   fs.writeFileSync(tmp, JSON.stringify(db, null, 2));
   fs.renameSync(tmp, DATA_FILE);
-  // 异步镜像到外部 Postgres（免费持久化，失败不影响主流程）
-  if (USE_PG && pgPool && pgReady) {
-    pgPool.query(
-      `INSERT INTO app_state (id, data) VALUES ('main', $1::jsonb)
-       ON CONFLICT (id) DO UPDATE SET data = EXCLUDED.data, updated_at = now()`,
-      [JSON.stringify(db)]
-    ).catch((e) => console.error('PG 镜像写入失败:', e.message));
-  }
 }
 
 function uid(prefix) {
@@ -354,6 +316,5 @@ module.exports = {
   getDiaries, addDiary, markDiaryRead,
   getCardDeck, getCollected, unlockCard,
   flush: persist,
-  initMirror,
   _raw: () => db,
 };

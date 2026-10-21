@@ -1,8 +1,5 @@
 'use strict';
 
-// 加载 .env 中的环境变量（如 DATABASE_URL），没有也不影响
-try { require('dotenv').config(); } catch (e) {}
-
 /**
  * 情侣思念小程序 - 实时后端
  * - Express 提供 REST 接口（配对、统计、定时情话、日记）
@@ -358,11 +355,9 @@ setInterval(scheduleTick, 30 * 1000);
 // 立即跑一次，避免启动后等待
 scheduleTick();
 
-store.initMirror().finally(() => {
-  server.listen(PORT, () => {
-    console.log('❤️  情侣思念后端已启动: http://localhost:' + PORT);
-    console.log('   WebSocket: ws://localhost:' + PORT + '/ws');
-  });
+server.listen(PORT, () => {
+  console.log('❤️  情侣思念后端已启动: http://localhost:' + PORT);
+  console.log('   WebSocket: ws://localhost:' + PORT + '/ws');
 });
 
 module.exports = { app, server };
