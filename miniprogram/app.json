@@ -39,11 +39,5 @@
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json",
-  "lazyCodeLoading": "requiredComponents",
-  "requiredPrivateInfos": ["getLocation"],
-  "permission": {
-    "scope.userLocation": {
-      "desc": "用于记录旅游打卡的地点"
-    }
-  }
+  "lazyCodeLoading": "requiredComponents"
 }

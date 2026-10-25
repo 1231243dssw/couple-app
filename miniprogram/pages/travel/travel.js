@@ -48,19 +48,6 @@ Page({
   onName(e) { this.setData({ name: e.detail.value }); },
   onNote(e) { this.setData({ note: e.detail.value }); },
 
-  getLocation() {
-    wx.getLocation({
-      type: 'gcj02',
-      success: (res) => {
-        this.setData({ lat: res.latitude, lng: res.longitude, located: true });
-        wx.showToast({ title: '已定位 📍', icon: 'none' });
-      },
-      fail: () => {
-        wx.showToast({ title: '定位失败，可手动填写地点', icon: 'none' });
-      },
-    });
-  },
-
   choosePhoto() {
     wx.chooseMedia({
       count: 1,

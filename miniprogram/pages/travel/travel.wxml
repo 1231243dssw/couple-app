@@ -1,7 +1,7 @@
 <view class="page travel">
   <view class="t-head">
     <view class="t-title">📍 旅游打卡</view>
-    <view class="t-sub">带着定位与照片，把风景留给我们</view>
+    <view class="t-sub">带着照片和心情，把风景留给我们</view>
   </view>
 
   <view class="list">
@@ -23,9 +23,6 @@
   <view class="mask" wx:if="{{formShow}}" bindtap="closeForm">
     <view class="sheet" catchtap="noop">
       <view class="s-title">留下这一刻</view>
-      <view class="loc-bar {{located ? 'on' : ''}}" bindtap="getLocation">
-        {{located ? '📍 已定位' : '📍 获取当前定位'}}
-      </view>
       <input class="s-input" placeholder="地点名称（如：东湖）" value="{{name}}" bindinput="onName" maxlength="20" />
       <textarea class="s-area" placeholder="写句话吧（选填）" value="{{note}}" bindinput="onNote" maxlength="60" />
       <view class="photo-box" bindtap="choosePhoto">
