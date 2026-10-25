@@ -6,9 +6,9 @@ App({
   // 模板需含字段：thing1（提醒事项）、thing2（内容）、time3（时间）
   WX_SUBSCRIBE_TMPL_ID: '',
   globalData: {
-    // 临时局域网后端（本机运行，真机调试用，绕开平台拦截，无需公网/白名单）
-    serverUrl: 'http://172.20.10.2:3000',
-    wsUrl: 'ws://172.20.10.2:3000',
+    // 正式云后端（Railway 部署，https+wss，任何网络可用）
+    serverUrl: 'https://couple-miss-backend-production.up.railway.app',
+    wsUrl: 'wss://couple-miss-backend-production.up.railway.app',
     shareCode: '',
     userId: '',
     roomCode: '',
@@ -24,8 +24,9 @@ App({
     const s = wx.getStorageSync('serverUrl');
     const ws = wx.getStorageSync('wsUrl');
     const sc = wx.getStorageSync('shareCode');
-    // 弃用指向 localhost（本机调试残留）或 app.workbuddy.host 的旧缓存，统一用内置默认公网配置
-    if (s && (s.indexOf('localhost') >= 0 || s.indexOf('app.workbuddy.host') >= 0)) {
+    // 弃用旧缓存：localhost / 平台旧域名 / 局域网 IP（10.15.20.x、172.20.10.x），统一切到云后端
+    if (s && (s.indexOf('localhost') >= 0 || s.indexOf('app.workbuddy.host') >= 0 ||
+        s.indexOf('10.15.20.') >= 0 || s.indexOf('172.20.10.') >= 0)) {
       wx.removeStorageSync('serverUrl');
       wx.removeStorageSync('wsUrl');
       wx.removeStorageSync('shareCode');
@@ -66,11 +67,11 @@ App({
     }
   },
 
-  // 恢复为本机局域网默认配置（一键修复地址/令牌填错的情况）
+  // 恢复为云后端默认配置（一键修复地址填错的情况）
   resetToDefault() {
     const d = {
-      serverUrl: 'http://172.20.10.2:3000',
-      wsUrl: 'ws://172.20.10.2:3000',
+      serverUrl: 'https://couple-miss-backend-production.up.railway.app',
+      wsUrl: 'wss://couple-miss-backend-production.up.railway.app',
       shareCode: '',
     };
     this.globalData.serverUrl = d.serverUrl;
