@@ -559,6 +559,7 @@ module.exports = {
   getTravels, addTravel, deleteTravel,
   getCardDeck, getCollected, unlockCard,
   getPhotosDir: () => PHOTOS_DIR,
+  getDataDir: () => DATA_DIR,
   flush: persist,
   _raw: () => db,
 };

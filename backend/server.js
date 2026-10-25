@@ -105,7 +105,7 @@ function broadcastRoom(code, payload, exceptWho) {
 const rpsChoices = {};
 
 // ---------------- REST ----------------
-app.get('/api/health', (req, res) => res.json({ ok: true, ts: Date.now(), pushEnabled: !!(WX_APPID && WX_APPSECRET) }));
+app.get('/api/health', (req, res) => res.json({ ok: true, ts: Date.now(), pushEnabled: !!(WX_APPID && WX_APPSECRET), dataDir: store.getDataDir() }));
 
 app.post('/api/room/create', (req, res) => {
   const { name, userId } = req.body || {};
