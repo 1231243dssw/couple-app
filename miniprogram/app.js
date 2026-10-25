@@ -115,11 +115,27 @@ App({
 
   scheduleReconnect() {
     const g = this.globalData;
+    if (g._noReconnect) return;
     if (g._reconnectTimer) return;
     g._reconnectTimer = setTimeout(() => {
       g._reconnectTimer = null;
-      if (g.roomCode) this.connectWS();
+      if (g.roomCode && !g._noReconnect) this.connectWS();
     }, 3000);
+  },
+
+  // 房间不存在等情况：清掉本地绑定回到配对页，停止重连
+  clearRoomAndRestart() {
+    const g = this.globalData;
+    g._noReconnect = true;
+    if (g.wsTask) { try { g.wsTask.close(); } catch (e) {} }
+    g.wsTask = null;
+    g.wsReady = false;
+    g.roomCode = '';
+    g.room = null;
+    wx.removeStorageSync('roomCode');
+    wx.removeStorageSync('who');
+    wx.removeStorageSync('myName');
+    wx.reLaunch({ url: '/pages/splash/splash' });
   },
 
   sendWS(obj) {
@@ -181,6 +197,12 @@ App({
         break;
       case 'rps_wait':
         EventBus.emit('rps_wait', msg);
+        break;
+      case 'error':
+        // 房间不存在（多半是旧缓存邀请码在云端已不存在）：清掉本地绑定回到配对页，避免死循环重连
+        if (msg.error && /房间/.test(msg.error)) {
+          this.clearRoomAndRestart();
+        }
         break;
       default:
         break;
