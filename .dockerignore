@@ -1,0 +1,10 @@
+.git
+.github
+node_modules
+backend/node_modules
+backend/data
+miniprogram
+*.log
+npm-debug.log
+.DS_Store
+.env
