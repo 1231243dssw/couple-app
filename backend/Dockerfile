@@ -9,7 +9,7 @@ RUN npm install --omit=dev
 # 拷贝源码
 COPY . .
 
-ENV PORT=3000
+# PORT 由 Railway 运行时注入，不在这里写死
 EXPOSE 3000
 
 CMD ["node", "server.js"]
